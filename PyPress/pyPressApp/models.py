@@ -6,4 +6,5 @@ class PyPress_Pages(models.Model):
     head = models.TextField()
     body = models.TextField()
     footer = models.TextField()
+    slug = models.CharField(max_length=300)
     
