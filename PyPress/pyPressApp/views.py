@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import PyPress_Pages
 import re
 # Create your views here.
 
@@ -14,7 +15,8 @@ def adminIndex(request):
     return render(request,"toDashboard.html",data)
 
 def adminApps(request,appname):
-    data = {"pageHeading": pageHeading(cleanhtml(appname))}
+    pages = PyPress_Pages.objects.all()
+    data = {"pageHeading": pageHeading(cleanhtml(appname)), "pageData":pages}
     if appname == "settings":
         return render(request,"adminSettings.html",data)
     if(appname == "home"):
@@ -24,6 +26,10 @@ def adminApps(request,appname):
     if(appname == "posts"):
         return render(request,"adminPosts.html",data)
     return render(request,"adminIndex.html")
+
+def adminEditPage(request,editPageSlug):
+    data = {"pageHeading": cleanhtml(editPageSlug)}
+    return render(request,'adminEditPage.html',data)
 
 
 def cleanhtml(raw_html):
