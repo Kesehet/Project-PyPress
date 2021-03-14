@@ -19,6 +19,10 @@ def adminApps(request,appname):
         return render(request,"adminSettings.html",data)
     if(appname == "home"):
         return render(request,"adminIndex.html",data)
+    if(appname == "pages"):
+        return render(request,"adminPages.html",data)
+    if(appname == "posts"):
+        return render(request,"adminPosts.html",data)
     return render(request,"adminIndex.html")
 
 
