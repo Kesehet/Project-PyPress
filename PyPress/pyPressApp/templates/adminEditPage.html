@@ -65,14 +65,22 @@
         <!-- Header -->
         <header class="w3-container" style="padding-top:22px">
             <h5><b><i class="fa fa-thumb-tack"></i> &nbsp; Editing Page {{pageHeading}}</b></h5>
-            <h5 class="w3-right"><div class="w3-button w3-blue"><i class="fa fa-save"></i> &nbsp;  Save </div></h5>
         </header>
-        <div class = "w3-container w3-padding-16" id="editor">
-                {{pageData.head|safe}} {{ pageData.body|safe }} {{ pageData.footer|safe }}
-        </div>
 
+    <form method="POST" action="">
+        <div  class="w3-button w3-blue" ><i class="fa fa-save"></i> <input  class="w3-button w3-blue" type="submit" value="Save">  </div> 
+        
+        <textarea class = "w3-container w3-padding-16" name="post" id="editor">
+                {{pageData.post|safe}} 
+        </textarea>
+        
+        {% csrf_token %}
+        <input type="text" name="name" value="{{pageData.name}}">
+        <input type="text" name="slug" value="{{pageData.slug}}">
+        
+    </form>
 
-
+   
 
         <!-- End page content -->
     </div>

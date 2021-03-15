@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path,include
 from pyPressApp import views
 import image
+from pyPressApp.models import *
+
+
 
 
 mList = ['admin/','pyadmin/','pyadmin/edit/<editPageSlug>']
@@ -27,6 +30,13 @@ urlpatterns = [
     path('pyadmin/<appname>',views.adminApps),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
 ]
+
+pages = PyPress_Pages.objects.all()
+for s in pages:
+    urlpatterns += [path(s.slug,views.renderPages)]
+    print(s.slug)
+
+
 
 
 

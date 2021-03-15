@@ -1,13 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import PyPress_Pages
+
+from .models import *
+from pyPressApp.forms import *
 import re
 # Create your views here.
 
 
 
-
-
+def renderPages(request):
+    pages = PyPress_Pages.objects.get(slug=cleanhtml(request.get_full_path().replace('/', '')))
+    userPost = pages.post
+    data = { "userPost": userPost }
+    return render(request,"themeHolder.html",data)
 
 # if Logged in .... 
 def adminIndex(request):
@@ -27,11 +32,24 @@ def adminApps(request,appname):
         return render(request,"adminPosts.html",data)
     return render(request,"adminIndex.html")
 
-def adminEditPage(request,editPageSlug):
-    page = PyPress_Pages.objects.filter(slug=cleanhtml(editPageSlug))
+def adminEditPage(request,editPageSlug): 
+    try:
+        page = PyPress_Pages.objects.get(slug=cleanhtml(editPageSlug))
+    except:
+        return render(request,'404.html')
+    if request.method == "POST":
+        myurl= "/pyadmin/edit/"+ request.POST.get("slug")
+        page.name=request.POST.get("name")
+        page.slug=request.POST.get("slug")
+        page.post=request.POST.get("post")
+        page.save()
+        data = {"pageHeading": cleanhtml(editPageSlug), "pageData": page}
+        return redirect (myurl)
+    else:
+        data = {"pageHeading": cleanhtml(editPageSlug), "pageData": page }
+        return render(request,'adminEditPage.html',data)
     
-    data = {"pageHeading": cleanhtml(editPageSlug), "pageData": page[0] }
-    return render(request,'adminEditPage.html',data)
+    
 
 
 def cleanhtml(raw_html):
