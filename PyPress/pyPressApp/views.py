@@ -28,7 +28,9 @@ def adminApps(request,appname):
     return render(request,"adminIndex.html")
 
 def adminEditPage(request,editPageSlug):
-    data = {"pageHeading": cleanhtml(editPageSlug)}
+    page = PyPress_Pages.objects.filter(slug=cleanhtml(editPageSlug))
+    
+    data = {"pageHeading": cleanhtml(editPageSlug), "pageData": page[0] }
     return render(request,'adminEditPage.html',data)
 
 

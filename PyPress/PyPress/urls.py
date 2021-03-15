@@ -14,8 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from pyPressApp import views
+import image
 
 
 mList = ['admin/','pyadmin/','pyadmin/edit/<editPageSlug>']
@@ -23,5 +24,10 @@ urlpatterns = [
     path(mList[0],admin.site.urls),
     path(mList[1],views.adminIndex),
     path(mList[2],views.adminEditPage),
-    path('pyadmin/<appname>',views.adminApps) 
+    path('pyadmin/<appname>',views.adminApps),
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
 ]
+
+
+
+

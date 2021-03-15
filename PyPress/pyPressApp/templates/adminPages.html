@@ -80,18 +80,21 @@
 
 
             <div class="w3-twothird">
-                <h5>Recent Events</h5>
+                <h5>Pages</h5>
                 <table class="w3-table w3-striped w3-white">
                     <tr>
                         <th>
-                            Page name
+                            Name
+                        </th>
+                        <th>
+                            Slug
                         </th>
                     </tr>
                     {% for data in pageData %}
                     <tr>
                         
                         <td> <a href="/pyadmin/edit/{{data.slug}}" > {{data.name}}</a></td>
-                        <td>{{data.slug}}</td>
+                        <td><a href="/pyadmin/edit/{{data.slug}}">/{{data.slug}}</a></td>
                     </tr>
                     {% endfor %}
                 </table>

@@ -2,6 +2,7 @@
 <html>
 <title>PyPress | Edit | {{ pageHeading}}</title>
 <meta charset="UTF-8">
+<script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
@@ -63,22 +64,15 @@
 
         <!-- Header -->
         <header class="w3-container" style="padding-top:22px">
-            <h5><b><i class="fa fa-thumb-tack"></i> Editing Page {{pageHeading}}</b></h5>
+            <h5><b><i class="fa fa-thumb-tack"></i> &nbsp; Editing Page {{pageHeading}}</b></h5>
+            <h5 class="w3-right"><div class="w3-button w3-blue"><i class="fa fa-save"></i> &nbsp;  Save </div></h5>
         </header>
+        <div class = "w3-container w3-padding-16" id="editor">
+                {{pageData.head|safe}} {{ pageData.body|safe }} {{ pageData.footer|safe }}
+        </div>
 
 
 
-        <!-- Footer -->
-
-        <footer class="w3-container w3-padding-16 w3-light-grey">
-
-            <div class="w3-container w3-dark-grey w3-padding-32">
-                <h4>💓</h4>
-                <p>Designed By <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-                <p>💓 By <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">Kesehet</a></p>
-            </div>
-
-        </footer>
 
         <!-- End page content -->
     </div>
@@ -106,6 +100,15 @@
             mySidebar.style.display = "none";
             overlayBg.style.display = "none";
         }
+
+        
+    </script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 
 </body>
