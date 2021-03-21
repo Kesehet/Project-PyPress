@@ -24,7 +24,7 @@
     <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
         <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey"
             onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-        <span class="w3-bar-item w3-right">Logo</span>
+        <span class="w3-bar-item w3-right">PyPress</span>
     </div>
 
 <!-- Sidebar/menu -->
@@ -35,7 +35,7 @@
         </div>
         <div class="w3-col s8 w3-bar">
             <span>Welcome, <strong>Mike</strong></span><br>
-            <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+            <a href="/" class="w3-bar-item w3-button"><i class="fa fa-eye"></i></a>
             <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
             <a href="settings" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
         </div>
@@ -89,12 +89,16 @@
                         <th>
                             Slug
                         </th>
+                        <th>
+                            
+                        </th>
                     </tr>
                     {% for data in pageData %}
                     <tr>
                         
-                        <td> <a href="/pyadmin/edit/{{data.slug}}" > {{data.name}}</a></td>
-                        <td><a href="/pyadmin/edit/{{data.slug}}">/{{data.slug}}</a></td>
+                        <td> <a href="/pyadmin/pages/edit/{{data.slug}}" >{{data.name}}</a></td>
+                        <td><a href="/pyadmin/pages/edit/{{data.slug}}">/{{data.slug}}</a></td>
+                        <td><a href="/{{data.slug}}">View Page</a></td>
                     </tr>
                     {% endfor %}
                 </table>

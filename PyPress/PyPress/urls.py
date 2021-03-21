@@ -22,7 +22,7 @@ from pyPressApp.models import *
 
 
 
-mList = ['admin/','pyadmin/','pyadmin/edit/<editPageSlug>']
+mList = ['admin/','pyadmin/','pyadmin/pages/edit/<editPageSlug>']
 urlpatterns = [
     path(mList[0],admin.site.urls),
     path(mList[1],views.adminIndex),
@@ -36,7 +36,7 @@ for s in pages:
     urlpatterns += [path(s.slug,views.renderPages)]
     print(s.slug)
 
-
+urlpatterns += [path("",views.renderPages)]
 
 
 

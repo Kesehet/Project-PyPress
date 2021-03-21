@@ -7,9 +7,16 @@ import re
 # Create your views here.
 
 
+WEBPREFERENCES = Settings.objects.get(id=1)
+
+DEFAULT_PAGE = WEBPREFERENCES.DefaultPage
 
 def renderPages(request):
-    pages = PyPress_Pages.objects.get(slug=cleanhtml(request.get_full_path().replace('/', '')))
+    
+    slugGiven = request.get_full_path().replace('/', '')
+    if slugGiven == "":
+        slugGiven = DEFAULT_PAGE
+    pages = PyPress_Pages.objects.get(slug=cleanhtml(slugGiven))
     userPost = pages.post
     data = { "userPost": userPost }
     return render(request,"themeHolder.html",data)
@@ -21,7 +28,8 @@ def adminIndex(request):
 
 def adminApps(request,appname):
     pages = PyPress_Pages.objects.all()
-    data = {"pageHeading": pageHeading(cleanhtml(appname)), "pageData":pages}
+    counts= {"pageCount": pages.count(),}
+    data = {"pageHeading": pageHeading(cleanhtml(appname)), "pageData":pages,"DBCounts":counts}
     if appname == "settings":
         return render(request,"adminSettings.html",data)
     if(appname == "home"):
@@ -38,7 +46,7 @@ def adminEditPage(request,editPageSlug):
     except:
         return render(request,'404.html')
     if request.method == "POST":
-        myurl= "/pyadmin/edit/"+ request.POST.get("slug")
+        myurl= "/pyadmin/pages/edit/"+ request.POST.get("slug")
         page.name=request.POST.get("name")
         page.slug=request.POST.get("slug")
         page.post=request.POST.get("post")

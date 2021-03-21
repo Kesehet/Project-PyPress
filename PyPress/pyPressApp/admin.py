@@ -6,6 +6,6 @@ from .models import *
 class PyPress_Pages(admin.ModelAdmin):
     list_display = ["name","post","slug"]
 
-@admin.register(Article)
-class Article(admin.ModelAdmin):
-    list_display = ["title"]
+@admin.register(Settings)
+class Settings(admin.ModelAdmin):
+    list_display = ["DefaultPage"]

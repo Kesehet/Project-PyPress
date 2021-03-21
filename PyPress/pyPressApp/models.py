@@ -9,6 +9,6 @@ class PyPress_Pages(models.Model):
 
 
 
-class Article(models.Model):
-    title=models.CharField('Title', max_length=200)
+class Settings(models.Model):
+    DefaultPage=models.CharField('DeafualtPage', max_length=200)
     
