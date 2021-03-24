@@ -11,4 +11,10 @@ class PyPress_Pages(models.Model):
 
 class Settings(models.Model):
     DefaultPage=models.CharField('DeafualtPage', max_length=200)
-    
+
+class ThemeDesign(models.Model):
+    HomePage = models.TextField()
+
+class ThemeVariables(models.Model):
+    VariableName = models.CharField(max_length=200)
+    VariableData = models.CharField(max_length=500)

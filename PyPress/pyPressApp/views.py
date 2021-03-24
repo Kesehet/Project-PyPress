@@ -16,10 +16,26 @@ def renderPages(request):
     slugGiven = request.get_full_path().replace('/', '')
     if slugGiven == "":
         slugGiven = DEFAULT_PAGE
+    design = ThemeDesign.objects.get()
     pages = PyPress_Pages.objects.get(slug=cleanhtml(slugGiven))
-    userPost = pages.post
+    mThemeDesign =  design.HomePage
+    userPost = RenderThemeVariables(mThemeDesign, pages)
     data = { "userPost": userPost }
     return render(request,"themeHolder.html",data)
+
+def RenderThemeVariables(themeData,userPost):
+    VarArray = ["$$USER_POST$$","$$USER_PAGE_NAME$$"]
+    ValArray = [userPost.post,userPost.name]
+    Variables = ThemeVariables.objects.all()
+    for m_v in Variables:
+        VarArray += m_v.VariableName
+        ValArray += m_v.VariableData
+    index = 0
+    for var in VarArray:
+        if themeData.find(var) != -1:
+            themeData = themeData.replace(VarArray[index],ValArray[index])
+        index = index + 1
+    return themeData
 
 # if Logged in .... 
 def adminIndex(request):
